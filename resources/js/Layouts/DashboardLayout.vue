@@ -3,6 +3,7 @@ import { ref } from "vue";
 import Sidebar from '@/Pages/Shared/Sidebardash.vue';
 import Nav from '@/Pages/Shared/Nav.vue';
 import { Link } from '@inertiajs/vue3';
+
 const isOpen = defineModel();
 const hasError = ref(false);
 </script>

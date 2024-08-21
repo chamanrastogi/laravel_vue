@@ -15,6 +15,10 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+Route::get('/about', function () {
+    return Inertia::render('About');
+})->name('about');
+
 Route::get('/mydash', function () {
     return Inertia::render('Mydash');
 })->middleware(['auth'])->name('mydash');

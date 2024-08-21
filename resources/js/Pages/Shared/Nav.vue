@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onBeforeUpdate } from "vue";
+import { ref } from "vue";
 import { Link } from '@inertiajs/vue3';
 const open = defineModel({ default: false });
 const openTop = ref( false );
