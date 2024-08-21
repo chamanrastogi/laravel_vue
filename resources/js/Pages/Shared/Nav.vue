@@ -1,56 +1,100 @@
 <script setup>
 import { ref } from "vue";
 import { Link } from '@inertiajs/vue3';
-const open = defineModel({ default: false });
-const openTop = ref( false );
-const hasError = ref(false);
+const openTop = defineModel();
+const themeMode = defineModel('themeMode',{default:true});
+const toggleBodyClass = () =>
+{
+
+    themeMode.value = !themeMode.value;
+    const html = document.documentElement;
+
+    // Toggle the `data-theme` attribute
+    if (themeMode.value) {
+        html.setAttribute('data-theme', 'dark');
+    } else {
+        html.setAttribute('data-theme', 'light');
+    }
+}
 </script>
 <template>
 
-    <div class="py-2 px-6 bg-[#f8f4f3] flex items-center shadow-md shadow-black/5 sticky top-0 left-0 z-30">
-        <button @click=" open = !open;" type="button" class="text-lg text-gray-900 font-semibold sidebar-toggle">
-            <i class="ri-menu-line"></i>
-        </button>
+    <div class="navbar-header">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-auto">
+                <div class="d-flex flex-wrap align-items-center gap-4">
+                    <button type="button" class="sidebar-toggle" :class="{ 'active': openTop, '': !openTop }">
+                        <iconify-icon @click="openTop = !openTop;"
+                            :icon="!openTop?'heroicons:bars-3-solid':'iconoir:arrow-right'"
+                            :class="{ 'non-active': !openTop, '': openTop }" class="icon text-2xl"></iconify-icon>
 
-        <ul class="ml-auto flex items-center">
+                    </button>
+                    <button type="button" class="sidebar-mobile-toggle">
+                        <iconify-icon icon="heroicons:bars-3-solid" class="icon"></iconify-icon>
+                    </button>
 
-            <li class="dropdown ml-3">
+                </div>
+            </div>
 
-                <button type="button" @click=" openTop = !openTop;" class="dropdown-toggle flex items-center">
-                    <div class="flex-shrink-0 w-10 h-10 relative">
-                        <div class="p-1 bg-white rounded-full focus:outline-none focus:ring">
-                            <img class="w-8 h-8 rounded-full"
-                                src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
-                                alt="" />
+            <div class="col-auto">
+                <div class="d-flex flex-wrap align-items-center gap-3">
+                    <button type="button" @click="toggleBodyClass()" data-theme-toggle=""
+                        class="w-40-px h-40-px bg-neutral-200 rounded-circle d-flex justify-content-center align-items-center"
+                        :aria-label=" themeMode ?'light' :'dark' ">light</button>
+
+                    <div class="dropdown">
+                        <button class="d-flex justify-content-center align-items-center rounded-circle" type="button"
+                            data-bs-toggle="dropdown">
+                            <img src="/backend/assets/images/user.png" alt="image"
+                                class="w-40-px h-40-px object-fit-cover rounded-circle">
+                        </button>
+                        <div class="dropdown-menu to-top dropdown-menu-sm">
                             <div
-                                class="top-0 left-7 absolute w-3 h-3 bg-lime-400 border-2 border-white rounded-full animate-ping">
+                                class="py-12 px-16 radius-8 bg-primary-50 mb-16 d-flex align-items-center justify-content-between gap-2">
+                                <div>
+                                    <h6 class="text-lg text-primary-light fw-semibold mb-2"> {{
+                                        $page.props.auth.user.name }}</h6>
+                                    <span
+                                        class="text-secondary-light fw-medium text-sm text-capitalize text-white bg-danger badge">
+                                        {{ $page.props.auth.user.role }}</span>
+                                </div>
+                                <button type="button" class="hover-text-danger">
+                                    <iconify-icon icon="radix-icons:cross-1" class="icon text-xl"></iconify-icon>
+                                </button>
                             </div>
-                            <div class="top-0 left-7 absolute w-3 h-3 bg-lime-500 border-2 border-white rounded-full">
-                            </div>
+                            <ul class="to-top-list">
+                                <li>
+                                    <Link
+                                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                                        :href="route('profile.edit')">
+                                    <iconify-icon icon="solar:user-linear" class="icon text-xl"></iconify-icon> My
+                                    Profile</Link>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                                        href="email.html">
+                                        <iconify-icon icon="tabler:message-check" class="icon text-xl"></iconify-icon>
+                                        Inbox</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                                        href="company.html">
+                                        <iconify-icon icon="icon-park-outline:setting-two"
+                                            class="icon text-xl"></iconify-icon> Setting</a>
+                                </li>
+                                <li>
+                                    <Link
+                                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3"
+                                        :href="route('logout')" method="post" as="button">
+                                    <iconify-icon icon="lucide:power" class="icon text-xl"></iconify-icon> Log
+                                    Out</Link>
+                                </li>
+                            </ul>
                         </div>
-                    </div>
-                    <div class="p-2 md:block text-left">
-                        <h2 class="text-sm font-semibold text-gray-800 text-capitalize"> {{ $page.props.auth.user.name
-                            }}</h2>
-                        <p class="text-xs text-gray-500 text-danger text-capitalize"> {{ $page.props.auth.user.role }}
-                        </p>
-                    </div>
-                </button>
-                <ul class="absolute z-50 mt-2 rounded-md shadow-lg w-48 ltr:origin-top-right rtl:origin-top-left end-0dropdown-menu shadow-md shadow-black/5 z-30 py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]"
-                    :class="{ 'hidden': !openTop, '': hasError }">
-                    <li>
-                        <Link :href="route('profile.edit')"
-                            class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50 cursor-pointer">
-                        Profile </Link>
-                    </li>
-                    <li>
-                        <Link :href="route('logout')" method="post" as="button"
-                            class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50 cursor-pointer">
-                        Logout </Link>
-                    </li>
-
-                </ul>
-            </li>
-        </ul>
+                    </div><!-- Profile dropdown end -->
+                </div>
+            </div>
+        </div>
     </div>
+
 </template>

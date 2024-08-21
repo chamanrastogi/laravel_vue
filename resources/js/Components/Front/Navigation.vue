@@ -16,7 +16,7 @@ defineProps(['isHome']);
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
                     <Link href="/" class="nav-item nav-link active">Home</Link>
-                    <Link href="/about" class="nav-item nav-link">About</Link>
+                    <Link href="/about" class="nav-item nav-link" replace>About</Link>
                     <a href="service.html" class="nav-item nav-link">Services</a>
                     <a href="blog.html" class="nav-item nav-link">Blogs</a>
                     <div class="nav-item dropdown">

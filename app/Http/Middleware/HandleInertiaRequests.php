@@ -12,7 +12,7 @@ class HandleInertiaRequests extends Middleware
      *
      * @var string
      */
-    protected $rootView = 'frontend.app';
+    protected $rootView = 'app';
 
     /**
      * Determine the current asset version.
@@ -22,16 +22,7 @@ class HandleInertiaRequests extends Middleware
         return parent::version($request);
     }
 
-    public function rootView(Request $request)
-    {
 
-        if ($request->is(['admin', 'admin/*'])) {
-
-            return 'admin.app';
-        }
-
-        return 'frontend.app';
-    }
     /**
      * Define the props that are shared by default.
      *

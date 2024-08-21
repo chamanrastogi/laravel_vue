@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
+    Inertia::setRootView('layouts.frontend.app');
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -17,6 +18,7 @@ Route::get('/', function () {
     ]);
 });
 Route::get('/about', function () {
+    Inertia::setRootView('layouts.frontend.app');
     return Inertia::render('About');
 })->name('about');
 
@@ -28,6 +30,8 @@ Route::get('/mydash', function () {
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 });
+
+
 
 
 Route::middleware('auth')->prefix('admin')->group(function () {

@@ -1,3 +1,8 @@
+
+<script setup>
+
+import { Link } from '@inertiajs/vue3';
+</script>
 <template>
     <div class="container-fluid topbar bg-light px-5 d-none d-lg-block">
         <div class="row gx-0 align-items-center">
@@ -15,8 +20,8 @@
                 <div class="d-inline-flex align-items-center" style="height: 45px;">
                     <a href="#"><small class="me-3 text-dark"><i
                                 class="fa fa-user text-primary me-2"></i>Register</small></a>
-                    <a href="#"><small class="me-3 text-dark"><i
-                                class="fa fa-sign-in-alt text-primary me-2"></i>Login</small></a>
+                    <Link :href="route('login')"><small class="me-3 text-dark"><i
+                                class="fa fa-sign-in-alt text-primary me-2"></i>Login</small></Link>
                     <div class="dropdown">
                         <a href="#" class="dropdown-toggle text-dark" data-bs-toggle="dropdown"><small><i
                                     class="fa fa-home text-primary me-2"></i> My Dashboard</small></a>
