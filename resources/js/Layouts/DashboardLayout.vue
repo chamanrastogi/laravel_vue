@@ -7,6 +7,7 @@ import { Link } from '@inertiajs/vue3';
 const isOpen = defineModel();
 const hasError = ref(false);
 </script>
+
 <template>
 
     <!--Sidenav -->
