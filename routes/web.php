@@ -1,15 +1,15 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Backend\SettingController;
+
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\StudentController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    Inertia::setRootView('layouts.frontend.app');
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -18,7 +18,7 @@ Route::get('/', function () {
     ]);
 });
 Route::get('/about', function () {
-    Inertia::setRootView('layouts.frontend.app');
+
     return Inertia::render('About');
 })->name('about');
 
@@ -35,6 +35,13 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
 
 Route::middleware('auth')->prefix('admin')->group(function () {
+   // SMTP and Site Setting  All Route
+    Route::controller(SettingController::class)->group(function () {
+        Route::get('/site/setting', 'SiteSetting')->name('site.setting');
+        Route::patch('/update/site/setting/{id}', 'UpdateSiteSetting')->name('update.site.setting');
+        Route::get('/smtp/setting', 'SmtpSetting')->name('smtp.setting');
+        Route::patch('/update/smpt/setting/{id}', 'UpdateSmtpSetting')->name('update.smpt.setting');
+    });
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
