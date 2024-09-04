@@ -34,16 +34,14 @@ const updatePassword = () => {
 </script>
 
 <template>
-    <section>
-        <header>
-            <h2 class="text-lg font-medium text-gray-900">Update Password</h2>
-
-            <p class="mt-1 text-sm text-gray-600">
-                Ensure your account is using a long, random password to stay secure.
-            </p>
-        </header>
-
-        <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
+   
+        
+        <div class="card-header">
+        <h6 class="card-title mb-0">Update Password</h6>
+    </div>
+    <div class="card-body">
+        <div class="row gy-3">
+        <form @submit.prevent="updatePassword" >
             <div>
                 <InputLabel for="current_password" value="Current Password" />
 
@@ -52,7 +50,7 @@ const updatePassword = () => {
                     ref="currentPasswordInput"
                     v-model="form.current_password"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="form-control"
                     autocomplete="current-password"
                 />
 
@@ -67,7 +65,7 @@ const updatePassword = () => {
                     ref="passwordInput"
                     v-model="form.password"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="form-control"
                     autocomplete="new-password"
                 />
 
@@ -81,7 +79,7 @@ const updatePassword = () => {
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="form-control"
                     autocomplete="new-password"
                 />
 
@@ -97,9 +95,14 @@ const updatePassword = () => {
                     leave-active-class="transition ease-in-out"
                     leave-to-class="opacity-0"
                 >
-                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
+                    
+                    <div v-if="form.recentlySuccessful" class="alert alert-success bg-success-600 text-white border-success-600 px-24 py-11 mb-0 fw-semibold text-lg radius-8 d-flex align-items-center justify-content-between" role="alert">
+                        Saved
+                        <button class="remove-button text-white text-xxl line-height-1"> <iconify-icon icon="iconamoon:sign-times-light" class="icon"></iconify-icon></button>
+                    </div>
                 </Transition>
             </div>
         </form>
-    </section>
+    </div>
+</div>
 </template>

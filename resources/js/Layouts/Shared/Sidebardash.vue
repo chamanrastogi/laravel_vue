@@ -13,11 +13,11 @@ const hasError = ref();
             <iconify-icon icon="radix-icons:cross-2"></iconify-icon>
         </button>
         <div>
-            <a href="index.html" class="sidebar-logo">
+            <Link :href="route('dashboard')" class="sidebar-logo">
                 <img src="/backend/assets/images/logo.png" alt="site logo" class="light-logo">
                 <img src="/backend/assets/images/logo-light.png" alt="site logo" class="dark-logo">
                 <img src="/backend/assets/images/logo-icon.png" alt="site logo" class="logo-icon">
-            </a>
+            </Link>
         </div>
         <div class="sidebar-menu-area">
             <ul class="sidebar-menu" id="sidebar-menu">

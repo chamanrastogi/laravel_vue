@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(SectionsSeeder::class);
         // $this->call(StudentsSeeder::class);
         // User::factory(10)->create();
-        Category::factory(10)->create();
+        User::factory(1)->create();
        // Student::factory(20)->create();
         //Classes::factory(10)->create();
       //  Section::factory(10)->create();
